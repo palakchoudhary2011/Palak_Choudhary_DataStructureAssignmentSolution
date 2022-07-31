@@ -1,26 +1,50 @@
 package com.greatlearning.skyscraper;
 
-import java.util.Scanner;
+import java.util.Stack;
 
 public class SkyscraperServices {
-	
-	static Scanner sc = new Scanner(System.in);
-	static int totalNoOfFloor;
-	static int floor[];
-	static int finalFloor[];
-	
-	public static void main(String args[]) {
-		
-		System.out.println("Enter total number of floor : ");
-		totalNoOfFloor = sc.nextInt();
-		floor = new int[totalNoOfFloor];
-		int j = 0;
-		for(int i = 0; i < floor.length; i++) {
-			j = i+1;
-			System.out.println("Enter floor size given on day " + j);
-			floor[i] = sc.nextInt();
+
+	int largestFloor = 0;
+	int index = -1;
+	Stack<Integer> newStack = new Stack<>();
+	Stack<Integer> tempStack = new Stack<>();
+	public Stack<Integer> custructBuilding(int floor, int day, int totalNoOfFloor) {
+		//System.out.println("The order of construction is as follows ");
+		tempStack.push(floor);
+		if(newStack.isEmpty()) {
+			newStack.push(floor);
+		}
+		else {
+			if(floor > newStack.peek()) {
+				if( tempStack.size() < totalNoOfFloor) {
+					newStack.push(floor);
+				}else {
+					newStack.push(floor);
+					System.out.println("Day "+ day + ": ");
+					while (newStack.size()>0){
+					    System.out.print( newStack.pop() + " ");
+					}
+				}
+				
+			}else if(floor < newStack.peek()) {
+					int prevDay = day - 1;
+					System.out.println("Day " +prevDay + ": ");
+					while (newStack.size()>0){
+					    System.out.print( newStack.pop() + " ");
+					}
+					System.out.println();
+				newStack.push(floor);
+			}
 		}
 		
-		
+		return newStack;
+	}
+	
+	public void traverseStack(Stack<Integer> stack) {
+		System.out.println("Stack : "+ newStack);
+	}
+	
+	public void showStack() {
+		System.out.println("Stack : "+ newStack);
 	}
 }
